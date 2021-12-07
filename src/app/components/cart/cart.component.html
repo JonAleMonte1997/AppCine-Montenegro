@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="cart-container">
+    <h2>Carrito</h2>
+    <div class="table-responsive">
+      <table class="table mt-5 mb-5">
+        <thead>
+          <tr>
+            <th scope="col">Película</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movieProduct of cart.products">
+            <th scope="row">{{movieProduct.movie.title}}</th>
+            <th scope="row">{{movieProduct.amount}}</th>
+            <th scope="row">{{movieProduct.movie.price * movieProduct.amount | currency}}</th>
+            <th><button type="button" class="btn-close" (click)="removeMovieInCart(movieProduct.movie)"></button></th>
+          </tr>
+        </tbody>
+      </table>
+      <legend class="subtotal">SubTotal: {{calculateSubTotal() | currency}}</legend>
+    </div>
+    <form [formGroup]="discountForm" class="mb-5">
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="discount">Descuento</span>
+        <input type="number" class="form-control" aria-describedby="inputDiscount" id="discount" formControlName="discount" placeholder="0,00%">
+      </div>
+      <span class="help-block text-danger" *ngIf="validateInput('discount')">
+        <span *ngIf="discountForm.get('discount')?.errors?.min">
+          El descuento no puede ser negativo
+        </span>
+        <span *ngIf="discountForm.get('discount')?.errors?.max">
+          El descuento no puede ser mayor al 100%
+        </span>
+      </span>
+    </form>
+    <legend>Total: {{calculateTotal() | currency}}</legend>
+    <button type="button" class="btn btn-success" (click)="purchase()">Realizar compra</button>
+  </div>
+</div>

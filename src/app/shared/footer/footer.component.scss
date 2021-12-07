@@ -1,0 +1,22 @@
+footer {
+
+  background-color: #008f39;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5rem;
+
+  padding: 25px;
+
+  p {
+    color: #dbeddc;
+    font-size: 20px;
+    margin: 0;
+
+    @media (max-width: 450px){
+      font-size: 13px;
+    }
+  }
+
+}
