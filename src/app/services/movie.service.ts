@@ -34,7 +34,7 @@ export class MovieService {
 
     let movies: Movie[] = moviesMock;
 
-    let movie: Movie | undefined = movies.find(movie => movie.id === movieId);
+    let movie: Movie | undefined = movies.find(movie => movie.id == movieId);
 
     return of(movie);
   }

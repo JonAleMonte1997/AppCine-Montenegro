@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Movie } from 'src/app/models/movie.model';
 import { CartService } from 'src/app/services/cart.service';
 import { MovieService } from 'src/app/services/movie.service';
@@ -23,20 +24,22 @@ export class InfoComponent implements OnInit {
     price: 0
   };
 
-  movieId: number = 3;
-
-  constructor(private movieService: MovieService, private cartService: CartService) { }
+  constructor(
+    private movieService: MovieService, 
+    private cartService: CartService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    let id: number = this.activatedRoute.snapshot.params['id'];
 
-    this.movieService.getDetail(this.movieId).subscribe(
+    this.movieService.getDetail(id).subscribe(
       res => {
         if (res) {
           this.movie = res;
         }
       }
     );
-
   }
 
   getMovieTimeDuration(): string {
@@ -47,7 +50,6 @@ export class InfoComponent implements OnInit {
   }
 
   addToCart() {
-
     this.cartService.add(this.movie);
   }
 }
