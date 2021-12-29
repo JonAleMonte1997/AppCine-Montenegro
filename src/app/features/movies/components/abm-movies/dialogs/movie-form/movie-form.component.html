@@ -1,0 +1,127 @@
+<div class="dialog-header">
+  <h2>Formulario de películas</h2>
+  <button mat-icon-button (click)="dialogRef.close()">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <form class="example-container mt-4 mb-4" [formGroup]="movieForm">
+
+    <div class="row">
+      <div class="col-lg-8">
+        <mat-form-field hintLabel="Máximo 120 caracteres" appearance="fill">
+          <mat-label>Título</mat-label>
+          <input formControlName="title" matInput #titleInput maxlength="120" placeholder="Título">
+          <mat-hint align="end">{{titleInput.value?.length || 0}}/120</mat-hint>
+          <mat-error *ngIf="hasError('title')">
+            <span *ngIf="movieForm.get('title')?.errors?.required">El título es requerido</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-4">
+        <mat-form-field hintLabel="Entre 1888-{{currentYear}}" appearance="fill">
+          <mat-label>Año</mat-label>
+          <input formControlName="year" type="number" matInput #yearInput placeholder="Año">
+          <mat-error *ngIf="hasError('year')">
+            <span *ngIf="movieForm.get('year')?.errors?.min">El año no puede ser menor al 1888</span>
+            <span *ngIf="movieForm.get('year')?.errors?.max">El año no puede ser mayor al {{currentYear}}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field hintLabel="Máximo 80 caracteres" appearance="fill">
+          <mat-label>Director</mat-label>
+          <input formControlName="director" matInput #directorInput maxlength="80" placeholder="Director">
+          <mat-hint align="end">{{directorInput.value?.length || 0}}/80</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Clasificación</mat-label>
+          <mat-select formControlName="classifield">
+            <mat-option *ngFor="let classifield of classifields" [value]="classifield">
+              {{classifield}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('classifield')">
+            <span *ngIf="movieForm.get('classifield')?.errors?.required">Se requiere una clasificación</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field hintLabel="En minutos" appearance="fill">
+          <mat-label>Duración</mat-label>
+          <input formControlName="duration" type="number" matInput placeholder="Duración">
+          <mat-error *ngIf="hasError('duration')">
+            <span *ngIf="movieForm.get('duration')?.errors?.min">La duración no puede ser negativa</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="slider-container">
+          <legend>Calificación:</legend>
+          <mat-slider formControlName="rate" max="100" min="0" thumbLabel="true"></mat-slider>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Generos:</mat-label>
+          <mat-chip-list multiple formControlName="gender">
+            <mat-chip *ngFor="let gender of genders" [value]="gender" #chip="matChip" (click)="chip.toggleSelected(true)" >
+              {{gender}}
+            </mat-chip>
+          </mat-chip-list>
+          <mat-error *ngIf="hasError('gender')">
+            <span *ngIf="movieForm.get('gender')?.errors?.required">Se requiere por lo menos un género</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field hintLabel="Máximo 1200 caracteres" appearance="fill">
+          <mat-label>Trama</mat-label>
+          <textarea matInput formControlName="plot" #tramaTextArea placeholder="Trama" maxlength="1200"></textarea>
+          <mat-hint align="end">{{tramaTextArea.value?.length || 0}}/1200</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8">
+        <mat-form-field hintLabel="Máximo 120 caracteres" appearance="fill">
+          <mat-label>Poster URL</mat-label>
+          <input matInput formControlName="posterURL" #posterUrlInput placeholder="Poster URL" maxlength="120">
+          <mat-hint align="end">{{posterUrlInput.value?.length || 0}}/120</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-4">
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Precio</mat-label>
+          <input matInput formControlName="price" type="number" placeholder="0" class="price-input">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+          <mat-error *ngIf="hasError('price')">
+            <span *ngIf="movieForm.get('price')?.errors?.required">Se requiere el precio</span>
+            <span *ngIf="movieForm.get('price')?.errors?.min">El precio no puede ser negativo</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<button mat-raised-button color="primary" class="mt-4" (click)="createMovie()">Aceptar</button>

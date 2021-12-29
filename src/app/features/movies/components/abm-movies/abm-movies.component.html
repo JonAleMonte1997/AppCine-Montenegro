@@ -1,0 +1,39 @@
+<div class="container mt-5 mb-5">
+
+  <h2>ABM de Películas</h2>
+
+  <button (click)="createMovie()" class="mb-3" mat-raised-button color="primary"><mat-icon>local_movies</mat-icon> Agregar nueva película</button>
+
+  <table mat-table [dataSource]="movies" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Título </th>
+      <td mat-cell *matCellDef="let movie"> {{movie.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef> Año </th>
+      <td mat-cell *matCellDef="let movie"> {{movie.year}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="director">
+      <th mat-header-cell *matHeaderCellDef> Director </th>
+      <td mat-cell *matCellDef="let movie"> {{movie.director}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let movie">
+        <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="viewMovie(movie.id)">Ver detalles</button>
+          <button mat-menu-item (click)="editMovie(movie)">Editar</button>
+          <button mat-menu-item (click)="deleteMovie(movie.id)">Eliminar</button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

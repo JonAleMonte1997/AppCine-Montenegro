@@ -1,0 +1,33 @@
+<div class="container mt-5">
+
+  <h2>Iniciar sesión</h2>
+
+  <form class="mt-5" [formGroup]="loginForm" (submit)="logIn()">
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput #titleInput placeholder="Email">
+        <mat-error *ngIf="hasError('email')">
+          <span *ngIf="loginForm.get('email')?.errors?.required">El email es requerido</span>
+          <span *ngIf="loginForm.get('email')?.errors?.email">Formato de email inválido</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Esconde contraseña'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="hasError('password')">
+          <span *ngIf="loginForm.get('password')?.errors?.required">La contraseña es requerida</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary">Ingresar</button>
+  </form>
+</div>

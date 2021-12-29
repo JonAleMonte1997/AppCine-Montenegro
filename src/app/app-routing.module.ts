@@ -1,11 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { CartComponent } from './components/cart/cart.component';
-import { InfoComponent } from './components/info/info.component';
-import { LoginComponent } from './components/login/login.component';
-import { MoviesComponent } from './components/movies/movies.component';
-import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {
@@ -15,23 +9,15 @@ const routes: Routes = [
   },
   {
     path: 'movies',
-    component: MoviesComponent
+    loadChildren: () => import('./features/movies/movies.module').then(m => m.MoviesModule)
   },
   {
     path: 'cart',
-    component: CartComponent
+    loadChildren: () => import('./features/cart/cart.module').then(m => m.CartModule)
   },
   {
-    path: 'info/:id',
-    component: InfoComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
+    path: 'user',
+    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   }
 ];
 

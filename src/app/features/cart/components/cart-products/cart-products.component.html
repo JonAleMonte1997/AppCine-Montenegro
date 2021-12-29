@@ -1,0 +1,28 @@
+<div class="container mt-5 mb-5">
+  <div class="cart-container">
+    <h2>Carrito</h2>
+    <div class="table-responsive">
+      <table class="table mt-3 mb-5">
+        <thead>
+          <tr>
+            <th scope="col">Película</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movieProduct of cart">
+            <th scope="row">{{movieProduct.movie.title}}</th>
+            <th scope="row">{{movieProduct.amount}}</th>
+            <th scope="row">{{movieProduct.movie.price * movieProduct.amount | currency}}</th>
+            <th><button type="button" class="btn-close" (click)="removeMovieInCart(movieProduct.movie)"></button></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <legend class="mb-3">Total: {{calculateTotal() | currency}}</legend>
+    <p *ngIf="!logged">Debe iniciar sesión para realizar la compra</p>
+    <button mat-raised-button (click)="purchase()" color="primary" [disabled]="!logged">Realizar compra</button>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="container mt-5 mb-5">
+
+  <h2>Registrarse</h2>
+
+  <form class="mt-5" [formGroup]="registerForm" (submit)="register()">
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre de usuario</mat-label>
+        <input formControlName="username" matInput #titleInput placeholder="Nombre de usuario">
+        <mat-error *ngIf="hasError('username')">
+          <span *ngIf="registerForm.get('username')?.errors?.required">El nombre de usuario es requerido</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput #titleInput placeholder="Email">
+        <mat-error *ngIf="hasError('email')">
+          <span *ngIf="registerForm.get('email')?.errors?.required">El email es requerido</span>
+          <span *ngIf="registerForm.get('email')?.errors?.email">Formato de email inválido</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input #inputPassword formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Esconde contraseña'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="hasError('password')">
+          <span *ngIf="registerForm.get('password')?.errors?.required">La contraseña es requerida</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input #inputConfirmPassword formControlName="confirmPassword" matInput [type]="hideConfirmPassword ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Esconde contraseña'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="hasError('confirmPassword')">
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.required">Se requiere confirmar la contraseña</span>
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.notEquals">Las contraseñas no son iguales</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary">Registrarse</button>
+  </form>
+
+  <!-- <div class="register-container">
+      <div class="mt-5 mb-5">
+        <label for="username" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="username" formControlName="username">
+        <span class="help-block text-light" *ngIf="validateInput('username')">
+          <span *ngIf="registerForm.get('username')?.errors?.required">
+            El nombre es requerido
+          </span>
+        </span>
+      </div>
+      <div class="mb-5">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+        <span class="help-block text-light" *ngIf="validateInput('email')">
+          <span *ngIf="registerForm.get('email')?.errors?.required">
+            El email es requerido
+          </span>
+          <span *ngIf="registerForm.get('email')?.errors?.email">
+            Formato de email inváido
+          </span>
+        </span>
+      </div>
+      <div class="mb-5">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <span class="help-block text-light" *ngIf="validateInput('password')">
+          <span *ngIf="registerForm.get('password')?.errors?.required">
+            La contraseña es requerida
+          </span>
+        </span>
+      </div>
+      <button type="submit" class="btn btn-light">Registrarse</button>
+    </form> -->
+  </div>

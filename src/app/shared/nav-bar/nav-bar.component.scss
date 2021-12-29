@@ -1,50 +1,44 @@
-nav{
+.tool-mobile {
+  display: none;
 
-  background-color: #008f39;
-
-  padding: 10px;
-
-  h1 {
-    color: #dbeddc;
-    cursor: pointer;
+  @media (max-width: 600px){
+    display: flex;
+    justify-content: space-between;
   }
 
-  .nav-container {
-
+  mat-toolbar-row {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+  }
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
+  .logo{
+    justify-content: center;
+  }
 
-    ul {
+  .movie-actions {
+    justify-content: space-between;
+  }
 
-      padding: 0;
-      margin: 0;
+  .user-actions {
+    justify-content: start;
+  }
+}
 
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+.tool-desktop {
 
-      list-style: none;
+  display: flex;
+  justify-content: space-between;
 
+  @media (max-width: 600px){
+    display: none;
+  }
+}
 
-      li {
+.text-logo {
+  cursor: pointer;
+}
 
-        margin: 10px;
-
-        a {
-          text-decoration: none;
-          color: #dbeddc;
-          font-size: 20px;
-        }
-
-        .active {
-          font-weight: bold;
-        }
-      }
-    }
+.user-logged {
+  span {
+    font-size: 16px;
   }
 }

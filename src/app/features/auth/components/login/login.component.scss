@@ -1,0 +1,8 @@
+mat-form-field {
+  width: 50%;
+
+  margin: 10px 0;
+  @media (max-width: 600px){
+    width: 100%;
+  }
+}

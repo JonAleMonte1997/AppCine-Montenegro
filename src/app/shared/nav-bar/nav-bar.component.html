@@ -1,23 +1,44 @@
-<header>
-  <nav>
-    <div class="nav-container">
-      <h1>CINE APP</h1>
-      <ul>
-        <li>
-          <a routerLink="/movies" routerLinkActive="active">Películas</a>
-        </li>
-        <li>
-          <a routerLink="/cart" routerLinkActive="active">Ver Carrito</a>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <a routerLink="/login" routerLinkActive="active">Iniciar sesión</a>
-        </li>
-        <li>
-          <a routerLink="/register" routerLinkActive="active">Registrarse</a>
-        </li>
-      </ul>
+<!-- Nav para escritorio -->
+
+<mat-toolbar class="tool-desktop" color="primary">
+  <span class="text-logo">APP CINE</span>
+  <div>
+    <button mat-button routerLink="/movies/list">Películas</button>
+    <button mat-button routerLink="/movies/abm" *ngIf="user && user.rol == 0">ABM</button>
+  </div>
+  <div>
+    <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
+    <button mat-button routerLink="/user/login" *ngIf="!user">Iniciar sesión</button>
+    <button mat-button routerLink="/user/register" *ngIf="!user">Registrarse</button>
+    <span *ngIf="user" class="user-logged">
+      <span>Hola {{user.username}}!</span>
+      <button mat-button (click)="logOut()">Cerrar sesión</button>
+    </span>
+  </div>
+</mat-toolbar>
+
+<!-- Nav para mobile -->
+
+<mat-toolbar class="tool-mobile" color="primary">
+
+  <mat-toolbar-row class="logo">
+    <span class="text-logo">APP CINE</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="movie-actions">
+    <div>
+      <button mat-button routerLink="/movies/list">Películas</button>
+      <button mat-button routerLink="/movies/abm" *ngIf="user && user.rol == 0">ABM</button>
     </div>
-  </nav>
-</header>
+    <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="user-actions">
+    <button mat-button routerLink="/user/login" *ngIf="!user">Iniciar sesión</button>
+    <button mat-button routerLink="/user/register" *ngIf="!user">Registrarse</button>
+    <span *ngIf="user" class="user-logged">
+      <span>Hola {{user.username}}!</span>
+      <button mat-button (click)="logOut()">Cerrar sesión</button>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>

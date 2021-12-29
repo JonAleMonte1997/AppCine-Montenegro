@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="movie-container">
+    <div class="logo-container">
+      <img [src]="movie.posterURL" onerror="this.src='../../../../../assets/placeholder.jpg'" class="shadow">
+    </div>
+    <div class="details-container">
+      <legend>{{movie.title}} <span *ngIf="movie.year">({{movie.year}})</span></legend>
+      <p>{{movie.classifield}} -
+        <span *ngFor="let gender of movie.gender; let i=index">
+          <span *ngIf="i!=0">, </span> <!-- Si es el primer elemento no pongo la ", " delante -->
+          {{gender}}
+        </span> -
+        <span>{{getMovieTimeDuration()}}</span>
+      </p>
+      <p class="mb-4">Puntuación: {{movie.rate}}/100</p>
+      <legend>Descripción: </legend>
+      <p>{{movie.plot}}</p>
+      <legend class="mt-4">Director:</legend>
+      <p>{{movie.director}}</p>
+      <button mat-flat-button color="primary" (click)="addToCart()"><mat-icon>add_shopping_cart</mat-icon></button>
+    </div>
+  </div>
+</div>
