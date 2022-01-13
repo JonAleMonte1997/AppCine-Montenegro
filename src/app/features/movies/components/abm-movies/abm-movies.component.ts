@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/features/auth/services/login.service';
-import { Classifield, Movie } from 'src/app/models/movie.model';
+import { Movie } from 'src/app/models/movie.model';
 import { MovieService } from '../../services/movie.service';
 import { DeleteAlertComponent } from './dialogs/delete-alert/delete-alert.component';
 import { MovieFormComponent } from './dialogs/movie-form/movie-form.component';
@@ -23,13 +22,9 @@ export class AbmMoviesComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
-    if (!this.loginService.isLogin()) {
-      this.router.navigate(['']);
-    }
     this.getMovies();
   }
 

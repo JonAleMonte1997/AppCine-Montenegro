@@ -1,34 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { User } from '../../../models/user.model';
-import { usersMock } from './mocks/user.mock';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  authApi: string = environment.authUrl;
+
+  constructor(private httpClient: HttpClient) { }
 
   add(user: User): Observable<User> {
 
-    //Simulo el alta del usuario que se daría en el BackEnd
-
-    let users: User[] = usersMock;
-
-    users.push(user)
-
-    return of(user);
+    return this.httpClient.post<User>(`${this.authApi}/users`, user);
   }
 
   get(email: String): Observable<User | undefined> {
 
-    //Simulacion de la busqueda del backend
-
-    let users: User[] = usersMock;
-
-    let user: User | undefined = users.find(user => user.email === email);
-
-    return of(user);
+    return this.httpClient.get<User | undefined>(`${this.authApi}/users/${email}`);
   }
 }

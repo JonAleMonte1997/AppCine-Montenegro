@@ -1,41 +1,71 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { User } from '../../../models/user.model';
-import { usersMock } from './mocks/user.mock';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators'
+import jwt_decode from 'jwt-decode';
+import { environment } from 'src/environments/environment';
+import { User, UserInfo } from '../../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor() { }
+  authApi: string = environment.authUrl;
+
+  constructor(private httpClient: HttpClient) { }
 
   validateLogin(email: string, password: string): Observable<boolean> {
 
-    //La idea sería que la siguiente validación la realice el BackEnd
+    let user = {
+      email: email,
+      password: password
+    };
 
-    let users: User[] = usersMock;
+    return this.httpClient.post(`${this.authApi}/auth`, user).pipe(
 
-    let user: User | undefined = users.find(user => user.email == email && user.password == password);
+      map((response:any) => {
+        if (response.status === 'OK') {
+          let token = response.token;
 
-    if (user) {
-      this.createToke(user);
-      return of(true);
-    }
+          this.createToke(token);
 
-    return of(false);
+          return true;
+        } else {
+          return false;
+        }
+      })
+    )
   }
 
-  createToke(user: User): void {
-    localStorage.setItem('token', JSON.stringify(user));
+  createToke(token: string): void {
+    localStorage.setItem('token', token);
   }
 
   isLogin(): boolean {
     return (localStorage.getItem('token')) ? true : false;
   }
 
-  getUserToken(): User | undefined {
-    return (this.isLogin()) ? JSON.parse(localStorage.getItem('token')!) : undefined;
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getUserToken(): UserInfo | undefined {
+
+    if (this.isLogin()) {
+      let token = localStorage.getItem('token')!;
+      const decodedToken: any = jwt_decode(token);
+
+      let userInfo: UserInfo = {
+        email: decodedToken.email,
+        rol: decodedToken.rol,
+        username: decodedToken.username
+      }
+
+      return userInfo;
+    }
+
+    return undefined;
   }
 
   logOut(): void {

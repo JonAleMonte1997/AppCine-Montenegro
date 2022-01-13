@@ -31,10 +31,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     let passwordControl = this.registerForm.controls['password'];
     this.registerForm.controls['confirmPassword'].addValidators(checkPasswords(passwordControl));
-
-    if (this.loginService.isLogin()) {
-      this.router.navigate(['']);
-    }
   }
 
   register() {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsAuthGuard } from './guards/is-auth.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./features/cart/cart.module').then(m => m.CartModule)
   },
   {
+    canActivate: [IsAuthGuard],
     path: 'user',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   }

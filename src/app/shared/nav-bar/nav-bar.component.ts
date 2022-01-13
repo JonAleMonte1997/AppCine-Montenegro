@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/features/auth/services/login.service';
 import { CartService } from 'src/app/features/cart/services/cart.service';
-import { User } from 'src/app/models/user.model';
+import { UserInfo } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,7 +11,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class NavBarComponent implements OnInit, OnDestroy {
 
-  user: User | undefined;
+  user: UserInfo | undefined;
 
   badgeHidden: boolean = true;
 
@@ -23,7 +22,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   constructor(
     private loginService: LoginService,
     private cartService: CartService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {

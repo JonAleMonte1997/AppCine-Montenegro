@@ -6,7 +6,13 @@ export interface User{
   password: string;
 }
 
+export interface UserInfo{
+  username: string;
+  rol: Rol;
+  email: string
+}
+
 export enum Rol {
-  ADMIN,
-  CLIENT
+  ADMIN = 'ADMIN',
+  CLIENT = 'CLIENT'
 }

@@ -2,7 +2,7 @@
 
   <h2>Iniciar sesión</h2>
 
-  <form class="mt-5" [formGroup]="loginForm" (submit)="logIn()">
+  <form class="mt-5" [formGroup]="loginForm">
 
     <div class="row">
       <mat-form-field appearance="fill">
@@ -28,6 +28,6 @@
       </mat-form-field>
     </div>
 
-    <button type="submit" mat-raised-button color="primary">Ingresar</button>
+    <button type="submit" (click)="logIn()" mat-raised-button color="primary">Ingresar</button>
   </form>
 </div>

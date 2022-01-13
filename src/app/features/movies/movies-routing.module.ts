@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 import { AbmMoviesComponent } from './components/abm-movies/abm-movies.component';
 import { InfoComponent } from './components/info/info.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { AdminAuthGuard } from 'src/app/guards/admin-auth.guard';
 
 const routes: Routes = [
   {
@@ -20,6 +22,7 @@ const routes: Routes = [
     component: InfoComponent
   },
   {
+    canActivate: [AuthGuard, AdminAuthGuard],
     path: 'abm',
     component: AbmMoviesComponent
   }

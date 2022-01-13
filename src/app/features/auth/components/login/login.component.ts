@@ -25,9 +25,7 @@ export class LoginComponent implements OnInit {
   hide: boolean = true;
 
   ngOnInit(): void {
-    if (this.loginService.isLogin()) {
-      this.router.navigate(['']);
-    }
+
   }
 
   logIn() {
