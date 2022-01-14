@@ -11,7 +11,7 @@ import { User, UserInfo } from '../../../models/user.model';
 })
 export class LoginService {
 
-  authApi: string = environment.authUrl;
+  authApi: string = `${environment.apiMovieUrl}/auth`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -22,10 +22,11 @@ export class LoginService {
       password: password
     };
 
-    return this.httpClient.post(`${this.authApi}/auth`, user).pipe(
+    return this.httpClient.post(`${this.authApi}/login`, user).pipe(
 
       map((response:any) => {
-        if (response.status === 'OK') {
+        if (response.token) {
+
           let token = response.token;
 
           this.createToke(token);
@@ -53,12 +54,14 @@ export class LoginService {
   getUserToken(): UserInfo | undefined {
 
     if (this.isLogin()) {
+
+
       let token = localStorage.getItem('token')!;
       const decodedToken: any = jwt_decode(token);
 
       let userInfo: UserInfo = {
-        email: decodedToken.email,
-        rol: decodedToken.rol,
+        email: decodedToken.sub,
+        rol: decodedToken.ROLES,
         username: decodedToken.username
       }
 
@@ -70,5 +73,18 @@ export class LoginService {
 
   logOut(): void {
     localStorage.removeItem('token');
+  }
+
+  isAdmin(): boolean {
+
+    let userInfo = this.getUserToken();
+
+    if (userInfo) {
+      if (userInfo.rol.indexOf('ROLE_ADMIN') > -1) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

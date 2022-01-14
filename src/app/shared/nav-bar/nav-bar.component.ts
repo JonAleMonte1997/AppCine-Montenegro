@@ -50,4 +50,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.loginService.logOut();
     window.location.reload();
   }
+
+  isAdmin(): boolean {
+    return this.loginService.isAdmin();
+  }
 }

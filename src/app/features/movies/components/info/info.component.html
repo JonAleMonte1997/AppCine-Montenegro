@@ -1,11 +1,11 @@
 <div class="container">
   <div class="movie-container">
     <div class="logo-container">
-      <img [src]="movie.posterURL" onerror="this.src='../../../../../assets/placeholder.jpg'" class="shadow">
+      <img [src]="movie.poster" onerror="this.src='../../../../../assets/placeholder.jpg'" class="shadow">
     </div>
     <div class="details-container">
       <legend>{{movie.title}} <span *ngIf="movie.year">({{movie.year}})</span></legend>
-      <p>{{movie.classifield}} -
+      <p>{{movie.classified}} -
         <span *ngFor="let gender of movie.gender; let i=index">
           <span *ngIf="i!=0">, </span> <!-- Si es el primer elemento no pongo la ", " delante -->
           {{gender}}

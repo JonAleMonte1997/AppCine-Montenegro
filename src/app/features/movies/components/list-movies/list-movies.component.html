@@ -3,7 +3,7 @@
   <div class="movie-list-container">
 
     <div class="movie-card" *ngFor="let movie of movies">
-      <img class="shadow" [src]="movie.posterURL" onerror="this.src='../../../../../assets/placeholder.jpg'" (click)="movieDetails(movie)">
+      <img class="shadow" [src]="movie.poster" onerror="this.src='../../../../../assets/placeholder.jpg'" (click)="movieDetails(movie)">
       <legend>{{movie.title}}</legend>
     </div>
   </div>

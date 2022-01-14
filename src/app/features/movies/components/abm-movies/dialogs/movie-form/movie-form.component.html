@@ -42,13 +42,13 @@
       <div class="col">
         <mat-form-field appearance="fill">
           <mat-label>Clasificación</mat-label>
-          <mat-select formControlName="classifield">
-            <mat-option *ngFor="let classifield of classifields" [value]="classifield">
-              {{classifield}}
+          <mat-select formControlName="classified">
+            <mat-option *ngFor="let classified of classifieds" [value]="classified">
+              {{classified}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="hasError('classifield')">
-            <span *ngIf="movieForm.get('classifield')?.errors?.required">Se requiere una clasificación</span>
+          <mat-error *ngIf="hasError('classified')">
+            <span *ngIf="movieForm.get('classified')?.errors?.required">Se requiere una clasificación</span>
           </mat-error>
         </mat-form-field>
       </div>
@@ -102,7 +102,7 @@
       <div class="col-lg-8">
         <mat-form-field hintLabel="Máximo 120 caracteres" appearance="fill">
           <mat-label>Poster URL</mat-label>
-          <input matInput formControlName="posterURL" #posterUrlInput placeholder="Poster URL" maxlength="120">
+          <input matInput formControlName="poster" #posterUrlInput placeholder="Poster URL" maxlength="120">
           <mat-hint align="end">{{posterUrlInput.value?.length || 0}}/120</mat-hint>
         </mat-form-field>
       </div>

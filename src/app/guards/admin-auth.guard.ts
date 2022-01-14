@@ -18,9 +18,7 @@ export class AdminAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const userInfo: UserInfo | undefined = this.loginService.getUserToken();
-
-    const isAdmin: boolean = (userInfo?.rol === 'ADMIN');
+    const isAdmin: boolean = this.loginService.isAdmin();
 
     if (!isAdmin) {
       this.router.navigate(['movies/list']);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Classifield, Movie } from 'src/app/models/movie.model';
+import { Classified, Movie } from 'src/app/models/movie.model';
 import { CartService } from 'src/app/features/cart/services/cart.service';
 import { MovieService } from '../../services/movie.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,8 +18,8 @@ export class InfoComponent implements OnInit {
     director: '',
     gender: [],
     plot: '',
-    posterURL: '',
-    classifield: Classifield.G,
+    poster: '',
+    classified: Classified.G,
     rate: 0,
     duration: 0,
     price: 0

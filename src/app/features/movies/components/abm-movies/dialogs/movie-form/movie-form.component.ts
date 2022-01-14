@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatChip, MatChipSelectionChange } from '@angular/material/chips';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Event } from '@angular/router';
-import { Classifield, Movie } from 'src/app/models/movie.model';
+import { Classified, Movie } from 'src/app/models/movie.model';
 
 @Component({
   selector: 'app-movie-form',
@@ -26,14 +24,14 @@ export class MovieFormComponent implements OnInit {
     director: new FormControl(null, [Validators.maxLength(80)]),
     gender: new FormControl(null, Validators.required),
     plot: new FormControl(null, Validators.maxLength(1200)),
-    posterURL: new FormControl(null, Validators.maxLength(120)),
-    classifield: new FormControl(null, Validators.required),
+    poster: new FormControl(null, Validators.maxLength(120)),
+    classified: new FormControl(null, Validators.required),
     rate: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(100)]),
     duration: new FormControl(null, Validators.min(0)),
     price: new FormControl(null, [Validators.required, Validators.min(0)]),
   });
 
-  classifields: string[] = Object.values(Classifield);
+  classifieds: string[] = Object.values(Classified);
 
   genders: string[] = ["Acción", "Aventura", "Drama", "Comedia", "Romance", "Bélica", "Criminal", "Ciencia ficción"];
 

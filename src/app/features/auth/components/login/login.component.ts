@@ -45,6 +45,14 @@ export class LoginComponent implements OnInit {
               duration: 3000
             })
           }
+        },
+        err => {
+          if (err.status === 401) {
+            this.snackBar.open('Email o contraseña incorrectos', undefined, {
+              horizontalPosition: 'end',
+              duration: 3000
+            })
+          }
         }
       )
 

@@ -9,17 +9,17 @@ import { User } from '../../../models/user.model';
 })
 export class UserService {
 
-  authApi: string = environment.authUrl;
+  authApi: string = `${environment.apiMovieUrl}/auth`;
 
   constructor(private httpClient: HttpClient) { }
 
   add(user: User): Observable<User> {
 
-    return this.httpClient.post<User>(`${this.authApi}/users`, user);
+    return this.httpClient.post<User>(`${this.authApi}/newUser`, user);
   }
 
   get(email: String): Observable<User | undefined> {
 
-    return this.httpClient.get<User | undefined>(`${this.authApi}/users/${email}`);
+    return this.httpClient.get<User | undefined>(`${this.authApi}/findByEmail/${email}`);
   }
 }

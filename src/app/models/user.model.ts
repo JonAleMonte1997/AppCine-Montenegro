@@ -1,7 +1,7 @@
 export interface User{
   id?: number;
   username: string;
-  rol: Rol;
+  rol: Rol[];
   email: string;
   password: string;
 }

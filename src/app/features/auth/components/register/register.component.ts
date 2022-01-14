@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
       let user: User = this.registerForm.value;
 
-      user.rol = Rol.CLIENT;
+      user.rol = [Rol.CLIENT];
 
       this.userService.add(user).subscribe(
         userRes => {

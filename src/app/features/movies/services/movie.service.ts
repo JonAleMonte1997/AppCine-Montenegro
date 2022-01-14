@@ -7,7 +7,7 @@ import { Movie } from '../../../models/movie.model';
 @Injectable()
 export class MovieService {
 
-  movieApi: string = environment.apiMovieUrl;
+  movieApi: string = `${environment.apiMovieUrl}/apiMovie/v1`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -18,18 +18,18 @@ export class MovieService {
 
   getMovie(id: number): Observable<Movie> {
 
-    return this.httpClient.get<Movie>(`${this.movieApi}/movies/${id}`);
+    return this.httpClient.get<Movie>(`${this.movieApi}/findById/${id}`);
   }
 
   createMovie(movie: Movie) {
-    return this.httpClient.post(`${this.movieApi}/movies`, movie);
+    return this.httpClient.post(`${this.movieApi}/createMovie`, movie);
   }
 
   editMovie(id: number, movie: Movie) {
-    return this.httpClient.put(`${this.movieApi}/movies/${id}`, movie);
+    return this.httpClient.put(`${this.movieApi}/updateMovie/${id}`, movie);
   }
 
   deleteMovie(id: number) {
-    return this.httpClient.delete(`${this.movieApi}/movies/${id}`);
+    return this.httpClient.delete(`${this.movieApi}/deleteMovie/${id}`);
   }
 }

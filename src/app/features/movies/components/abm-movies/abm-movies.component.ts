@@ -43,9 +43,13 @@ export class AbmMoviesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         let movieToCreate: Movie = res;
-        this.movieService.createMovie(movieToCreate).subscribe(() => {
+        this.movieService.createMovie(movieToCreate).subscribe((res) => {
+          console.log(res);
           this.getMovies();
           this.displayNotification('Película creada con éxito');
+        },
+        err => {
+          console.log(err)
         });
       } else
         this.displayNotification('Operación de creación cancelada');
