@@ -15,7 +15,7 @@ export interface Movie{
 export enum Classified{
   G = "G",
   PG = "PG",
-  PG_13 = "PG-13",
+  PG_13 = "PG_13",
   R = "R",
-  NC_17 = "NC-17"
+  NC_17 = "NC_17"
 }
