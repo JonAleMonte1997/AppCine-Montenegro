@@ -28,7 +28,7 @@
   <mat-toolbar-row class="movie-actions">
     <div>
       <button mat-button routerLink="/movies/list">Películas</button>
-      <button mat-button routerLink="/movies/abm" *ngIf="user && user.rol == 'ADMIN'">ABM</button>
+      <button mat-button routerLink="/movies/abm" *ngIf="user && isAdmin()">ABM</button>
     </div>
     <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
   </mat-toolbar-row>

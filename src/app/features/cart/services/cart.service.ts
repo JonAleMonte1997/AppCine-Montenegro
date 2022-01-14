@@ -67,6 +67,7 @@ export class CartService {
   clear(): void {
     this.cart = [];
     localStorage.removeItem('cart');
+    this.sendAmount();
   }
 
   getMoviesProduct(): MovieProduct[] {
@@ -85,5 +86,31 @@ export class CartService {
     }
 
     return amount;
+  }
+
+  addAmount(indexMovie: number): void{
+
+    this.getCart();
+
+    this.cart[indexMovie].amount++;
+
+    this.setCart();
+    this.sendAmount();
+  }
+
+  removeAmount(indexMovie: number): void{
+
+    let amount;
+
+    this.getCart();
+
+    amount = --this.cart[indexMovie].amount;
+
+    if (amount == 0) {
+      this.remove(this.cart[indexMovie].movie);
+      return;
+    }
+    this.setCart();
+    this.sendAmount();
   }
 }

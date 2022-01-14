@@ -24,12 +24,23 @@
     flex-direction: column;
     justify-content: center;
 
-    button {
-      padding: 10px;
-      margin-top: 50px;
-      width: 64px;
 
-      font-size: 20px;
-    }
+  }
+}
+
+.cart-button-container {
+
+  span {
+    margin: 10px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  button {
+    padding: 10px;
+    margin-top: 50px;
+    width: 64px;
+
+    font-size: 20px;
   }
 }

@@ -17,7 +17,10 @@
       <p>{{movie.plot}}</p>
       <legend class="mt-4">Director:</legend>
       <p>{{movie.director}}</p>
-      <button mat-flat-button color="primary" (click)="addToCart()"><mat-icon>add_shopping_cart</mat-icon></button>
+      <div class="cart-button-container">
+        <button mat-flat-button color="primary" (click)="addToCart()"><mat-icon>add_shopping_cart</mat-icon></button>
+        <span>Precio: ${{movie.price}}</span>
+      </div>
     </div>
   </div>
 </div>

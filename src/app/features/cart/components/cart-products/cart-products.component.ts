@@ -44,6 +44,10 @@ export class CartProductsComponent implements OnInit {
       horizontalPosition: 'end',
       duration: 5000
     });
+
+    this.cartService.clear();
+
+    this.getProducts();
   }
 
   calculateTotal(): number {
@@ -55,5 +59,16 @@ export class CartProductsComponent implements OnInit {
     });
 
     return total;
+  }
+
+  addAmount(indexMovie: number): void {
+
+    this.cartService.addAmount(indexMovie);
+    this.getProducts();
+  }
+
+  removeAmount(indexMovie: number): void {
+    this.cartService.removeAmount(indexMovie);
+    this.getProducts();
   }
 }
