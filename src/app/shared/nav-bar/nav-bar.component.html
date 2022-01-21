@@ -7,7 +7,7 @@
     <button mat-button routerLink="/movies/abm" *ngIf="user && isAdmin()">ABM</button>
   </div>
   <div>
-    <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
+    <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount$ | async" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
     <button mat-button routerLink="/user/login" *ngIf="!user">Iniciar sesión</button>
     <button mat-button routerLink="/user/register" *ngIf="!user">Registrarse</button>
     <span *ngIf="user" class="user-logged">
@@ -30,7 +30,7 @@
       <button mat-button routerLink="/movies/list">Películas</button>
       <button mat-button routerLink="/movies/abm" *ngIf="user && isAdmin()">ABM</button>
     </div>
-    <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
+    <button mat-button routerLink="/cart"><mat-icon [matBadge]="productsBadgeAmount$ | async" [matBadgeHidden]="badgeHidden" matBadgeColor="warn">shopping_cart</mat-icon></button>
   </mat-toolbar-row>
 
   <mat-toolbar-row class="user-actions">

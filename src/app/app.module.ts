@@ -10,9 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MoviesModule } from './features/movies/movies.module';
 import { CartModule } from './features/cart/cart.module';
 import { MaterialModule } from './material/material.module';
-import { CartService } from './features/cart/services/cart.service';
 import { AuthModule } from './features/auth/auth.module';
 import { AuthInterceptorService } from './interceptors/auth.interceptor.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,11 @@ import { AuthInterceptorService } from './interceptors/auth.interceptor.service'
     MoviesModule,
     CartModule,
     AuthModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot({},{}),
+    StoreDevtoolsModule.instrument({maxAge: 25})
   ],
   providers: [
-    CartService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

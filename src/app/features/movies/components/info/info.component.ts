@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Classified, Movie } from 'src/app/models/movie.model';
-import { CartService } from 'src/app/features/cart/services/cart.service';
 import { MovieService } from '../../services/movie.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CartState } from 'src/app/features/cart/store/cart-store.model';
+import { Store } from '@ngrx/store';
+import { cartAddMovie } from 'src/app/features/cart/store/cart.actions';
 
 @Component({
   selector: 'app-info',
@@ -27,9 +29,9 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private cartService: CartService,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private store: Store<CartState>
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +54,8 @@ export class InfoComponent implements OnInit {
   }
 
   addToCart() {
-    this.cartService.add(this.movie);
+    let movieToAdd = this.movie;
+    this.store.dispatch(cartAddMovie({movie: movieToAdd}));
 
     this.snackBar.open('Añadido al carrito', undefined, {
       horizontalPosition: 'end',

@@ -9,8 +9,6 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { MovieFormComponent } from './components/abm-movies/dialogs/movie-form/movie-form.component';
 import { DeleteAlertComponent } from './components/abm-movies/dialogs/delete-alert/delete-alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CartService } from '../cart/services/cart.service';
-
 
 
 @NgModule({

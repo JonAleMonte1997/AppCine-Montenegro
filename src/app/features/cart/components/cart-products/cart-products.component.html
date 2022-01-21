@@ -12,21 +12,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let movieProduct of cart; let i = index">
+          <tr *ngFor="let movieProduct of cart$ | async; let i = index">
             <th scope="row">{{movieProduct.movie.title}}</th>
             <th scope="row">
               {{movieProduct.amount}}
               <span>
-                <button mat-icon-button (click)="addAmount(i)">
+                <button mat-icon-button (click)="addAmount(movieProduct.movie)">
                   <mat-icon>add</mat-icon>
                 </button>
-                <button mat-icon-button (click)="removeAmount(i)">
+                <button mat-icon-button (click)="decreaseAmount(i)">
                   <mat-icon>remove</mat-icon>
                 </button>
               </span>
             </th>
             <th scope="row">{{movieProduct.movie.price * movieProduct.amount | currency}}</th>
-            <th><button type="button" class="btn-close" (click)="removeMovieInCart(movieProduct.movie)"></button></th>
+            <th><button type="button" class="btn-close" (click)="removeMovie(i)"></button></th>
           </tr>
         </tbody>
       </table>

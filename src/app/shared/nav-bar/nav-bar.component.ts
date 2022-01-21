@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { LoginService } from 'src/app/features/auth/services/login.service';
-import { CartService } from 'src/app/features/cart/services/cart.service';
+import { CartState } from 'src/app/features/cart/store/cart-store.model';
+import { amountSelector, cartSelector } from 'src/app/features/cart/store/cart.selectors';
 import { UserInfo } from 'src/app/models/user.model';
 
 @Component({
@@ -15,35 +17,28 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   badgeHidden: boolean = true;
 
-  productsBadgeAmount: number = 0;
+  productsBadgeAmount$!: Observable<number>;
 
-  amountSubscribeRef!: Subscription;
+  amountSubscription!: Subscription;
 
   constructor(
     private loginService: LoginService,
-    private cartService: CartService,
+    private store: Store<CartState>
   ) { }
 
   ngOnInit(): void {
 
     this.user = this.loginService.getUserToken();
 
-    this.prepareBadge(this.cartService.getProductsAmount());
+    this.productsBadgeAmount$ = this.store.pipe(
+      select(amountSelector)
+    )
 
-    this.cartService.amountObservable.subscribe(amount => {
-      this.prepareBadge(amount);
-    })
-  }
-
-  prepareBadge(amount: number) {
-
-    this.productsBadgeAmount = amount;
-
-    this.badgeHidden = !(this.productsBadgeAmount > 0);
-  }
-
-  ngOnDestroy(): void {
-      this.amountSubscribeRef.unsubscribe();
+    this.amountSubscription = this.productsBadgeAmount$.subscribe(
+      amount => {
+        this.badgeHidden = (amount > 0) ? false: true;
+      }
+    )
   }
 
   logOut() {
@@ -53,5 +48,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   isAdmin(): boolean {
     return this.loginService.isAdmin();
+  }
+
+  ngOnDestroy(): void {
+    this.amountSubscription.unsubscribe();
   }
 }

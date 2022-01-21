@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { CartProductsComponent } from './components/cart-products/cart-products.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CartRoutingModule } from './cart-routing.module';
-import { CartService } from './services/cart.service';
 import { MaterialModule } from 'src/app/material/material.module';
+import { StoreModule } from '@ngrx/store';
+import { cartReducer } from './store/cart.reducer';
 
 
 
@@ -16,7 +17,8 @@ import { MaterialModule } from 'src/app/material/material.module';
     CommonModule,
     ReactiveFormsModule,
     CartRoutingModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forFeature('cart', cartReducer)
   ]
 })
 export class CartModule { }
