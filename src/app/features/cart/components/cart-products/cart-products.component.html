@@ -33,6 +33,6 @@
     </div>
     <legend class="mb-3">Total: {{calculateTotal() | currency}}</legend>
     <p *ngIf="!logged">Debe iniciar sesión para realizar la compra</p>
-    <button mat-raised-button (click)="purchase()" color="primary" [disabled]="!logged">Realizar compra</button>
+    <button mat-raised-button (click)="purchase()" color="primary" [disabled]="!(logged && hasProducts)">Realizar compra</button>
   </div>
 </div>

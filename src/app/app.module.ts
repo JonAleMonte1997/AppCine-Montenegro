@@ -14,6 +14,7 @@ import { AuthModule } from './features/auth/auth.module';
 import { AuthInterceptorService } from './interceptors/auth.interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LoadingBarInterceptorService } from './interceptors/loading-bar.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingBarInterceptorService,
       multi: true
     }
   ],

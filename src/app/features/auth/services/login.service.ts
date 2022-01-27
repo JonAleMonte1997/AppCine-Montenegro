@@ -11,7 +11,7 @@ import { User, UserInfo } from '../../../models/user.model';
 })
 export class LoginService {
 
-  authApi: string = `${environment.apiMovieUrl}/auth`;
+  private authApi: string = `${environment.apiMovieUrl}/auth`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -86,5 +86,25 @@ export class LoginService {
     }
 
     return false;
+  }
+
+  isTokenExpired(): boolean {
+
+    const token = this.getToken();
+
+    if (token) {
+
+      const decodedToken: any = jwt_decode(token);
+
+      const isExpired: boolean = (Math.floor((new Date).getTime() / 1000) >= decodedToken.exp);
+
+      return isExpired;
+    }
+
+    return false;
+  }
+
+  deleteToken(): void {
+    localStorage.removeItem('token');
   }
 }

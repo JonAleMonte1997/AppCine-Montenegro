@@ -44,3 +44,13 @@
     font-size: 20px;
   }
 }
+
+.spinner-container{
+  position: absolute;
+  width: 100%;
+
+  .spinner{
+    margin: auto;
+    margin-top: 20%;
+  }
+}
