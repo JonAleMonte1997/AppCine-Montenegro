@@ -1,9 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
 import { CartState } from "./cart-store.model";
-import { cartAddMovie, cartClear, cartDecreaseAmount, cartRemoveMovie } from "./cart.actions";
+import { cartAddMovie, cartClear, cartDecreaseAmount, cartIncreaseMovieAmount, cartRemoveMovie } from "./cart.actions";
 
 export const cartInitialState: CartState = {
-  cart: (localStorage.getItem('cart')) ? JSON.parse(<string>localStorage.getItem('cart')) : []
+  cart: (localStorage.getItem('jona-cart')) ? JSON.parse(<string>localStorage.getItem('jona-cart')) : []
 }
 
 const _cartReducer = createReducer(
@@ -12,21 +12,25 @@ const _cartReducer = createReducer(
   on(cartAddMovie, (state, { movie }) => {
     const cart = [...state.cart];
 
-    let movieIndex: number = cart.findIndex(product => product.movie.id === movie.id);
+    cart.push({movie: movie, amount: 1});
 
-    if (movieIndex > -1) {
+    localStorage.setItem('jona-cart', JSON.stringify(cart));
 
-      let movie = {...cart[movieIndex]};
+    return {
+      ...state,
+      cart
+    };
+  }),
 
-      movie.amount++;
+  on(cartIncreaseMovieAmount, (state, { movieIndex }) => {
 
-      cart[movieIndex] = movie;
+    const cart = [...state.cart];
+    let movie = {...cart[movieIndex]};
 
-    } else {
-      cart.push({movie: movie, amount: 1});
-    }
+    movie.amount++;
+    cart[movieIndex] = movie;
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('jona-cart', JSON.stringify(cart));
 
     return {
       ...state,
@@ -51,7 +55,7 @@ const _cartReducer = createReducer(
       cart[movieIndex] = movie;
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('jona-cart', JSON.stringify(cart));
 
     return {
       ...state,
@@ -65,7 +69,7 @@ const _cartReducer = createReducer(
 
     cart.splice(movieIndex, 1);
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('jona-cart', JSON.stringify(cart));
 
     return {
       ...state,
@@ -75,7 +79,7 @@ const _cartReducer = createReducer(
 
   on(cartClear, state => {
 
-    localStorage.removeItem('cart');
+    localStorage.removeItem('jona-cart');
 
     return {
       ...state,

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Movie } from 'src/app/models/movie.model';
 import { MovieService } from '../../services/movie.service';
+import { loadMovies } from '../../store/movie.actions';
+import { getMoviesSelector } from '../../store/movie.selectors';
 
 @Component({
   selector: 'app-list-movies',
@@ -10,17 +15,16 @@ import { MovieService } from '../../services/movie.service';
 })
 export class ListMoviesComponent implements OnInit {
 
-  movies: Movie[] = [];
+  movies: Observable<Movie[]> = new Observable<Movie[]>();
 
   constructor(
-    private movieService: MovieService,
-    private router:Router
+    private router:Router,
+    private store:Store
   ) { }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe(
-      movies => this.movies = movies
-    );
+    this.movies = this.store.select(getMoviesSelector);
+    this.store.dispatch(loadMovies());
   }
 
   movieDetails(movie: Movie) {

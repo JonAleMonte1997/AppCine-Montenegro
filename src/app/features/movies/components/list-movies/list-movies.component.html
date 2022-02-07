@@ -2,7 +2,7 @@
   <h2>Lista de películas</h2>
   <div class="movie-list-container">
 
-    <div class="movie-card" *ngFor="let movie of movies">
+    <div class="movie-card" *ngFor="let movie of movies | async">
       <img class="shadow" [src]="movie.poster" onerror="this.src='../../../../../assets/placeholder.jpg'" (click)="movieDetails(movie)">
       <legend>{{movie.title}}</legend>
     </div>

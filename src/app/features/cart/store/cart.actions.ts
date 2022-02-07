@@ -6,6 +6,11 @@ export const cartAddMovie = createAction(
   props<{movie: Movie}>()
 )
 
+export const cartIncreaseMovieAmount = createAction(
+  'Cart - Increase movie amount',
+  props<{movieIndex: number}>()
+)
+
 export const cartRemoveMovie = createAction(
   'Cart - Remove movie',
   props<{movieIndex: number}>()

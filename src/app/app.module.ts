@@ -15,6 +15,8 @@ import { AuthInterceptorService } from './interceptors/auth.interceptor.service'
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { LoadingBarInterceptorService } from './interceptors/loading-bar.interceptor.service';
+import { EffectsModule } from '@ngrx/effects';
+import { MovieEffects } from './features/movies/store/movies.effect';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { LoadingBarInterceptorService } from './interceptors/loading-bar.interce
     AuthModule,
     MaterialModule,
     StoreModule.forRoot({},{}),
-    StoreDevtoolsModule.instrument({maxAge: 25})
+    StoreDevtoolsModule.instrument({maxAge: 25}),
+    EffectsModule.forRoot([MovieEffects])
   ],
   providers: [
     {

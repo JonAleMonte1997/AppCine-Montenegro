@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Classified, Movie } from 'src/app/models/movie.model';
 import { MovieService } from '../../services/movie.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartState } from 'src/app/features/cart/store/cart-store.model';
-import { Store } from '@ngrx/store';
-import { cartAddMovie } from 'src/app/features/cart/store/cart.actions';
+import { select, Store } from '@ngrx/store';
+import { cartAddMovie, cartIncreaseMovieAmount } from 'src/app/features/cart/store/cart.actions';
+import { Observable, Subscription } from 'rxjs';
+import { MovieProduct } from 'src/app/models/cart.model';
+import { cartSelector } from 'src/app/features/cart/store/cart.selectors';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent implements OnInit, OnDestroy {
 
   movie: Movie = {
     title: '',
@@ -26,6 +29,12 @@ export class InfoComponent implements OnInit {
     duration: 0,
     price: 0
   };
+
+  cart$!: Observable<MovieProduct[]>;
+
+  subscription!: Subscription;
+
+  movieIndex: number = -1;
 
   constructor(
     private movieService: MovieService,
@@ -44,6 +53,15 @@ export class InfoComponent implements OnInit {
         }
       }
     );
+
+    this.cart$ = this.store.pipe(
+      select(cartSelector)
+    )
+
+    this.subscription = this.cart$.subscribe(cart => {
+      this.movieIndex = cart.findIndex(movieProduct => movieProduct.movie.id == id);
+    })
+
   }
 
   getMovieTimeDuration(): string {
@@ -55,11 +73,20 @@ export class InfoComponent implements OnInit {
 
   addToCart() {
     let movieToAdd = this.movie;
-    this.store.dispatch(cartAddMovie({movie: movieToAdd}));
+
+    if (this.movieIndex > -1) {
+      this.store.dispatch(cartIncreaseMovieAmount({movieIndex: this.movieIndex}));
+    } else {
+      this.store.dispatch(cartAddMovie({movie: movieToAdd}));
+    }
 
     this.snackBar.open('Añadido al carrito', undefined, {
       horizontalPosition: 'end',
       duration: 3000
     })
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 }

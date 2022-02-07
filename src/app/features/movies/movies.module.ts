@@ -9,6 +9,10 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { MovieFormComponent } from './components/abm-movies/dialogs/movie-form/movie-form.component';
 import { DeleteAlertComponent } from './components/abm-movies/dialogs/delete-alert/delete-alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { MovieEffects } from './store/movies.effect';
+import { StoreModule } from '@ngrx/store';
+import { moviesReducer } from './store/movie.reducer';
 
 
 @NgModule({
@@ -23,7 +27,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MoviesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature('movieState', moviesReducer),
+    EffectsModule.forFeature([MovieEffects])
   ],
   providers: [
     MovieService

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators'
 import jwt_decode from 'jwt-decode';
 import { environment } from 'src/environments/environment';
-import { User, UserInfo } from '../../../models/user.model';
+import { UserInfo } from '../../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,15 +40,15 @@ export class LoginService {
   }
 
   createToke(token: string): void {
-    localStorage.setItem('token', token);
+    localStorage.setItem('jona-token', token);
   }
 
   isLogin(): boolean {
-    return (localStorage.getItem('token')) ? true : false;
+    return (localStorage.getItem('jona-token')) ? true : false;
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('jona-token');
   }
 
   getUserToken(): UserInfo | undefined {
@@ -56,7 +56,7 @@ export class LoginService {
     if (this.isLogin()) {
 
 
-      let token = localStorage.getItem('token')!;
+      let token = localStorage.getItem('jona-token')!;
       const decodedToken: any = jwt_decode(token);
 
       let userInfo: UserInfo = {
@@ -72,7 +72,7 @@ export class LoginService {
   }
 
   logOut(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem('jona-token');
   }
 
   isAdmin(): boolean {
@@ -105,6 +105,6 @@ export class LoginService {
   }
 
   deleteToken(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem('jona-token');
   }
 }

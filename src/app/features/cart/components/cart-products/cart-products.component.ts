@@ -5,7 +5,7 @@ import { LoginService } from 'src/app/features/auth/services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartState } from '../../store/cart-store.model';
 import { select, Store } from '@ngrx/store';
-import { cartAddMovie, cartClear, cartDecreaseAmount, cartRemoveMovie } from '../../store/cart.actions';
+import { cartAddMovie, cartClear, cartDecreaseAmount, cartIncreaseMovieAmount, cartRemoveMovie } from '../../store/cart.actions';
 import { Observable, Subscription } from 'rxjs';
 import { cartSelector } from '../../store/cart.selectors';
 
@@ -83,8 +83,8 @@ export class CartProductsComponent implements OnInit, OnDestroy {
     return total;
   }
 
-  addAmount(movie: Movie): void {
-    this.store.dispatch(cartAddMovie({movie}));
+  addAmount(movieIndex: number): void {
+    this.store.dispatch(cartIncreaseMovieAmount({movieIndex}));
   }
 
   decreaseAmount(movieIndex: number): void {
